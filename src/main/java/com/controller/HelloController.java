@@ -1,15 +1,16 @@
 package com.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/rest/hello")
+//@CrossOrigin("http:localhost/4200")
+@RequestMapping("/auth")
 public class HelloController {
-
-    @GetMapping
-    public String hello() {
-        return "Hello World";
+    @GetMapping("/")
+    public String hello(){
+        System.out.println("in home");
+        return "home";
     }
 }

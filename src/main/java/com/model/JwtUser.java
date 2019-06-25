@@ -1,32 +1,64 @@
 package com.model;
 
-//get username by token's body
-public class JwtUser {
-    private String userName;
-    private long id;
-    private String role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+import java.util.Collection;
+
+/**
+ *
+ * 为了实现UserDetails 接口
+ */
+public class JwtUser implements UserDetails {
+
+    private String username;
+
+    private String password;
+
+
+
+    private Collection<? extends GrantedAuthority> authorities;
+
+    public JwtUser(String username, String password,  Collection<? extends GrantedAuthority> authorities) {
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public String getUserName() {
-        return userName;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public long getId() {
-        return id;
+    // 账户是否未过期
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getRole() {
-        return role;
+    // 账户是否未被锁
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

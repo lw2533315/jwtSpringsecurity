@@ -1,9 +1,4 @@
-management:
-  security:
-    enabled: true
-
-
-spring:
-  resources:
-    chain:
-      enabled: true
+jwt:
+  header: jwtHeader
+  secret: abcdefg
+  expiration: 1800000   #毫秒

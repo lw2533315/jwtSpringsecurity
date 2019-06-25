@@ -1,4 +1,4 @@
-package com.security;
+﻿package com.security;
 
 import com.model.JwtUser;
 import io.jsonwebtoken.Claims;
@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 //create a token by user information
 public class JwtGenerator {
-
+    //30 minutes 过期
+    private final long EXPIRATION_TIME = 1800000; 
     //return a new token
     public String generate(JwtUser jwtUser) {
         //create token' claims 保存在token payload里面
@@ -27,6 +28,7 @@ public class JwtGenerator {
         //有很多选择，可以具体设置jwt， 这里的youtube 是秘钥可以自己修改
         return Jwts.builder()
                 .setClaims(claims)
+		.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, "youtube")
                 .compact();
     }

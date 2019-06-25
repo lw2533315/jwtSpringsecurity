@@ -1,4 +1,4 @@
-package com.security;
+﻿package com.security;
 
 
 import com.model.JwtUser;
@@ -18,11 +18,15 @@ public class JwtValidator {
         JwtUser jwtUser = null;
         try {
             Claims body = Jwts.parser()
-                    .setSigningKey(secret)
+                    .setSigningKey(secret)    //通过秘钥提取claim body
                     .parseClaimsJws(token)
                     .getBody();
-
-            jwtUser = new JwtUser();
+	    
+	    //判断是否过期
+            if (new Date().after(body.getExpiration())){
+                return null;
+            }
+	    jwtUser = new JwtUser();
 
             jwtUser.setUserName(body.getSubject());
             jwtUser.setId(Long.parseLong((String) body.get("userId")));
