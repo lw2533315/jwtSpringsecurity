@@ -1,4 +1,4 @@
-package com.jwt;
+﻿package com.jwt;
 
 import com.model.JwtUser;
 import io.jsonwebtoken.Claims;
@@ -21,12 +21,14 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "jwt") //读取配置文件信息，以jwt为前缀
 @Component
 public class JwtTokenUtil {
-
+   //这三个参数都写在application.properties 里
+   //秘钥
     private String secret;
 
     // 过期时间 毫秒
     private long expiration;
 
+    //存放在http 的header里token对应的key
     private String header;
 //
     /**
